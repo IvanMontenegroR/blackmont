@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-image">
+      {% if content.field_image %}
+        {{ content.field_image }}
+      {% endif %}
+    </div>
+    <div class="card-content">
+      <h3 class="card-title">{{ content.field_title }}</h3>
+      <p class="card-text">{{ content.field_description }}</p>
+      {% if content.field_cta %}
+        {% set cta_url = content.field_cta.0['#url'] %}
+        {% set cta_title = content.field_cta.0['#title'] %}
+        <a href="{{ cta_url }}" class="card-button">{{ cta_title }}</a>
+      {% endif %}
+    </div>
+  </div>
+  
+
+
+
+
+<style type="text/css">
+/* Card Container */
+.card {
+  display: flex;
+  align-items: center; /* Vertically centers the card content inside */
+  width: 75%; /* Adjust if needed */
+  margin: 0 auto; /* Centers the card within its parent */
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+}
+
+.card-image {
+  flex: 1; /* Adjusts based on your image's desired width */
+  /* Ensures the image stretches to the left border */
+  margin-right: 2rem; /* Adds some space between the image and the text */
+}
+
+.card-content {
+  flex: 2; /* Adjusts based on your content's desired width */
+  padding: 2rem 0; /* Vertical padding only */
+}
+  
+  /* Card Button */
+  .card-button {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline-block;
+    padding: .375rem .75rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .card-button:hover {
+    background-color: #fff;
+    border-color: #0056b3;
+  }
+  
+</style>

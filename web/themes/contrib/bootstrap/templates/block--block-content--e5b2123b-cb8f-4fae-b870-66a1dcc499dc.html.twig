@@ -1,3 +1,67 @@
-<div class="card" style="border: 2px solid red;">
-  {{ content }}
+{{ attach_library('bootstrap/card-style') }}
+
+<div class="card">
+  {% if content.field_image %}
+    {{ content.field_image }}
+  {% endif %}
+
+  <div class="card-body">
+      <h3 class="card-title"">{{ content.field_title }}</h3>
+      <p class="card-text">{{ content.field_body }}</p>
+
+{% if content.field_cta %}
+      {# Extract the URL and title from the 'field_cta' link field #}
+      {% set cta_url = content.field_cta.0['#url'] %}
+      {% set cta_title = content.field_cta.0['#title'] %}
+      <a href="{{ cta_url }}" class="card-button">{{ cta_title }}</a>
+    {% endif %}
+
 </div>
+</div>
+
+
+
+
+<style type="text/css">
+/* Card Container */
+.card {
+    width: 25rem;
+    padding: 2rem;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+  }
+  
+  /* Card Title */
+  .card-title {
+    font-size: 2.125rem;
+    font-weight: bold;
+  }
+  
+  /* Card Text */
+  .card-text {
+    font-size: 1rem; /* Ensure a valid font-size unit */
+  }
+  
+  /* Card Button */
+  .card-button {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline-block;
+    padding: .375rem .75rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .card-button:hover {
+    background-color: #fff;
+    border-color: #0056b3;
+  }
+  
+</style>
