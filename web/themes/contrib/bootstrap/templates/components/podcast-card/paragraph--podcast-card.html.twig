@@ -1,0 +1,298 @@
+{# paragraph--podcast-card.html.twig #}
+<article class="podcast-card">
+
+  {# START OF Section for the podcast image, including the overlay and play/pause button #}
+  <div class="podcast-image">
+    
+    {# Check if there is an episode image #}
+    {% if paragraph.field_podcast_episode.entity.field_episode_image %}
+      
+      {# Access the image file #}
+      {% set podcast_image_file = paragraph.field_podcast_episode.entity.field_episode_image.entity %}
+      
+      {# Container for the image and overlay #}
+      <div class="image-overlay-container">
+        <img src="{{ file_url(podcast_image_file.uri.value) }}" alt="{{ podcast_image_file.alt }}" />
+        <div class="overlay"></div>
+        
+        {# Play/pause button #}
+        <div class="card-banner-icon play-pause-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="8,5 19,12 8,19 8,5" fill="white"/>
+          </svg>
+        </div>
+      
+      </div>
+    {% endif %}
+  </div>
+  {# END OF SECTION #}
+  
+
+
+  {# START OF Audio file section #}
+    {% if paragraph.field_podcast_episode.entity.field_podcast_audio.entity %}
+      <audio class="podcast-audio" src="{{ file_url(paragraph.field_podcast_episode.entity.field_podcast_audio.entity.uri.value) }}" preload="metadata"></audio>
+    {% endif %}
+  {# END OF SECTION #}
+
+
+
+  {# START OF Audio controls located directly under the podcast image #}
+    <div class="audio-controls">
+      <span class="current-time">0:00</span>
+      <input type="range" class="audio-slider" value="0" min="0" max="100" step="1">
+      <span class="total-time">0:00</span>
+    </div>
+  {# END OF SECTION #}
+
+
+
+  {# START OF Section for podcast information like series name, episode number, and title #}
+  <div class="podcast-info">
+    
+    {# Check if there is episode information available #}
+    {% if paragraph.field_podcast_episode.entity %}
+      
+      <div class="info-row">
+        {# Check for series name and provide a link if available #}
+        {% if paragraph.field_podcast_episode.entity.field_series.entity %}
+          
+          <div class="series-name">
+            <a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': paragraph.field_podcast_episode.entity.field_series.entity.id}) }}" class="series-link">
+              {{ paragraph.field_podcast_episode.entity.field_series.entity.label }}
+            </a>
+          </div>
+
+        {% endif %}
+        <span class="episode-number">Episode: {{ paragraph.field_podcast_episode.entity.field_episode_number.value }}</span>
+      </div>
+
+      <h3 class="episode-title">{{ paragraph.field_podcast_episode.entity.label }}</h3>
+
+    {% endif %}
+  </div>
+  {# END OF SECTION #}
+
+</article>
+{# END OF CONTAINER #}
+
+
+
+
+<style type="text/css">
+/* Styling for the main podcast card */
+.podcast-card {
+  
+  align-items: stretch; /* Stretch items to match the card's width */
+  max-width: 255px; /* Maximum card width */
+  box-shadow: 0 4px 12px rgba(88,79,76,0.16); /* Shadow effect for depth */
+}
+
+/* Container for image and overlay */
+.image-overlay-container {
+  position: relative; /* Needed for absolute positioning of children */
+}
+
+/* Styles for the podcast image */
+.podcast-image img {
+  width: 100%; /* Full width of its container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the container without stretching */
+  display: block; /* Block display to remove bottom margin/line */
+}
+
+/* The overlay that appears on top of the podcast image */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 1; /* Above the image but below the icon */
+}
+
+/* Play/pause button styling */
+.card-banner-icon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* No background */
+  border: 2px solid white; /* White border */
+  border-radius: 50%; /* Circular shape */
+  cursor: pointer; /* Pointer cursor on hover */
+  z-index: 2; /* Ensure it's above the overlay */
+}
+
+/* Podcast information section styling */
+.podcast-info {
+  padding: 1rem; /* Padding around the text */
+}
+
+/* Row containing series name and episode number */
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between series name and episode number */
+  width: 100%;
+  padding: 0.5rem 0 1rem; /* Padding top & bottom */
+}
+
+/* Play/pause button centering */
+.play-pause-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Perfectly center */
+  z-index: 2;
+  border: none;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+/* Hover effect for the card */
+.podcast-card:hover .card-banner-icon {
+  background: white;
+  color: #e91c24; /* Example color, replace with your theme color */
+}
+
+/* Link styling within the series name */
+.series-name a {
+  color: #2b2b2b;
+  text-decoration: none; /* Remove underline */
+}
+
+/* Styling for the series name */
+.series-name {
+  position: relative;
+  border-bottom: 2px solid #e91c24; /* Red underline */
+}
+
+/* Episode number styling */
+.episode-number {
+  color: #2b2b2b;
+  text-align: right; /* Align to the right */
+}
+
+/* Episode title styling */
+.episode-title {
+  color: #2b2b2b;
+  margin-top: 0.5rem; /* Space between row and title */
+  font-size: 2rem; /* Larger font size for emphasis */
+}
+
+/* Custom styling for the audio slider */
+.audio-slider {
+  -webkit-appearance: none; /* Reset default style */
+  width: 100%; /* Full width */
+  height: 2px; /* Slider thickness */
+  background: #e91c24; /* Slider color */
+  cursor: pointer; /* Pointer cursor */
+}
+
+
+.audio-controls {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.current-time, .total-time {
+  color: #fff;
+  padding: 0.6rem;
+}
+</style>
+
+
+<script>
+window.onload = function() {
+  const podcastCards = document.querySelectorAll('.podcast-card');
+  console.log(`Found ${podcastCards.length} podcast cards`); // Log the number of podcast cards
+
+  let currentlyPlaying = null; // Keep track of the currently playing audio
+
+  podcastCards.forEach((card, index) => {
+    console.log(`Setting up podcast card ${index + 1}`); // Log the index of the current podcast card
+
+    const audio = card.querySelector('.podcast-audio');
+    const playButton = card.querySelector('.play-pause-btn');
+    const slider = card.querySelector('.audio-slider');
+    const currentTimeElement = card.querySelector('.current-time');
+    const totalTimeElement = card.querySelector('.total-time');
+    const controls = card.querySelector('.audio-controls');
+
+    // Function to update play button icon and slider visibility
+    function updatePlayButton(isPlaying) {
+      playButton.innerHTML = isPlaying
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>' // Pause icon
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="8,5 19,12 8,19 8,5"/></svg>'; // Play icon
+    }
+
+    // Set slider max value and update total time when metadata is loaded
+    audio.addEventListener('loadedmetadata', function() {
+      slider.max = audio.duration;
+      const totalMinutes = Math.floor(audio.duration / 60);
+      const totalSeconds = Math.floor(audio.duration % 60);
+      totalTimeElement.textContent = `${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
+      currentTimeElement.textContent = '0:00';
+    });
+
+   // Play/pause toggle
+    playButton.addEventListener('click', function() {
+      console.log(`Play button clicked for podcast card ${index + 1}`); // Log when the play button is clicked
+      if (audio.paused) {
+        if (currentlyPlaying && currentlyPlaying !== audio) {
+          currentlyPlaying.pause(); // Pause the currently playing audio
+        }
+        audio.play();
+        currentlyPlaying = audio; // Update the currently playing audio
+      } else {
+        audio.pause();
+        if (currentlyPlaying === audio) {
+          currentlyPlaying = null; // Clear the currently playing audio
+        }
+      }
+    });
+
+    // Update play button icon based on audio state
+    audio.addEventListener('play', () => updatePlayButton(true));
+    audio.addEventListener('pause', () => updatePlayButton(false));
+    audio.addEventListener('ended', () => updatePlayButton(false)); // Reset on end
+
+    // Update slider as audio plays
+    audio.addEventListener('timeupdate', function() {
+      slider.value = audio.currentTime;
+      const currentMinutes = Math.floor(audio.currentTime / 60);
+      const currentSeconds = Math.floor(audio.currentTime % 60);
+      currentTimeElement.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
+    });
+
+    // Seek in the audio when slider value changes
+    slider.addEventListener('input', function() {
+      audio.currentTime = slider.value;
+    });
+
+    // Continuously check and update total time until it's loaded
+    const intervalId = setInterval(function() {
+      if (audio.duration > 0) {
+        const totalMinutes = Math.floor(audio.duration / 60);
+        const totalSeconds = Math.floor(audio.duration % 60);
+        totalTimeElement.textContent = `${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
+        clearInterval(intervalId);
+      }
+    }, 100);
+  });
+};
+</script>
