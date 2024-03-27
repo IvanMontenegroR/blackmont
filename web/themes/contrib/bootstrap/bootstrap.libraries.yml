@@ -174,3 +174,16 @@ drupal.vertical-tabs:
     - bootstrap/theme
     - core/once
     - core/drupal.form
+
+podcast-card-list:
+  css:
+    theme:
+      templates/components/podcast-card-list/podcast-card-list.css: {}
+
+podcast-card:
+  css:
+    theme:
+      templates/components/podcast-card/podcast-card.css: {}
+  js:
+    templates/components/podcast-card/podcast-card.js: {}
+  dependencies:

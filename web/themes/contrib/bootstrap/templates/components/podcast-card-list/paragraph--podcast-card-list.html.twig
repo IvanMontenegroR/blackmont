@@ -1,15 +1,5 @@
 {# paragraph--podcast-card-list.html.twig #}
+{{ attach_library('bootstrap/podcast-card-list') }}
 <div class="podcast-card-list">
       {{ content.field_podcast_card }}
 </div>
-
-
-<style type="text/css">
-.field--items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Adjust the space between cards as needed */
-  justify-content: center; /* Center the cards within the container */
-}
-
-</style>

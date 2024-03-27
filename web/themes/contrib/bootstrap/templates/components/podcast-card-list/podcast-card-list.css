@@ -1,0 +1,7 @@
+.podcast-card-list > .field  > .field--items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the space between cards as needed */
+    justify-content: center; /* Center the cards within the container */
+    padding: 2rem 0 2rem 0; /* Padding top & bottom */
+  }

@@ -1,0 +1,20 @@
+<article class="article-card">
+
+{# START OF Image Section #}
+{% if paragraph.field_article_page.entity.field_image %}
+    {% set article_image_file = paragraph.field_article_page.entity.field_image.entity %}
+    <div class="article-image">
+        <img src="{{ file_url(article_image_file.uri.value) }}" alt="{{ article_image_file.alt }}">
+    </div>
+{% endif %}
+{# END OF Image Section #}
+
+{# START OF Info Section #}
+{% if paragraph.field_article_page.entity %}
+    <div class="article-info">
+        <h3 class="article-title">{{ paragraph.field_article_page.entity.label }}</h3>
+        <p class="article-summary">{{ paragraph.field_article_page.entity.body.summary }}</p>
+                    <a href="{{ url('entity.node.canonical', { 'node': paragraph.field_article_page.entity.id }) }}">{{ 'Read More' }}</a>
+                </div>
+{% endif %}
+{# END OF Info Section #}
