@@ -15,6 +15,8 @@ window.onload = function() {
     const slider = card.querySelector('.audio-slider');
     const currentTimeElement = card.querySelector('.current-time');
     const totalTimeElement = card.querySelector('.total-time');
+    const speedControlBackward = card.querySelector('.speed-control-1');
+    const speedControlForward = card.querySelector('.speed-control-2');
 
     slider.max = audio.duration;
 
@@ -92,6 +94,16 @@ window.onload = function() {
       const currentSeconds = Math.floor(audio.currentTime % 60);
       // Display the current time in the current time element
       currentTimeElement.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
+    });
+
+    // Event listener for speed-control-1 (Backward 10 seconds)
+    speedControlBackward.addEventListener('click', function() {
+      audio.currentTime = Math.max(0, audio.currentTime - 10);
+    });
+
+    // Event listener for speed-control-2 (Forward 10 seconds)
+    speedControlForward.addEventListener('click', function() {
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
     });
 
     

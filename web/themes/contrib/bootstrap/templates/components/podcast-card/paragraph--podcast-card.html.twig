@@ -16,12 +16,6 @@
         <img src="{{ file_url(podcast_image_file.uri.value) }}" alt="{{ podcast_image_file.alt }}">
         <div class="overlay"></div>
         
-        {# Play/pause button #}
-        <div class="card-banner-icon play-pause-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="8,5 19,12 8,19 8,5" fill="white"/>
-          </svg>
-        </div>
       
       </div>
     {% endif %}
@@ -38,12 +32,40 @@
 
 
 
-  {# START OF Audio controls located directly under the podcast image #}
-    <div class="audio-controls">
-      <span class="current-time">0:00</span>
-      <input type="range" class="audio-slider" value="0" min="0" max="100" step="1">
-      <span class="total-time">0:00</span>
+  {# START OF Audio controls#}
+  <div class="audio-controls">
+        <span class="current-time">0:00</span>
+        <input type="range" class="audio-slider" value="0" min="0" max="100" step="1">
+        <span class="total-time">0:00</span>
     </div>
+
+
+    <div class="action-buttons">
+      <button class="backwards"><svg width="74" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" class="playback-speed playback-speed-2-0x">
+    <!-- Grouping arrows and applying transformations -->
+    <g transform="scale(-1, 1) translate(-24, 0)">
+        <!-- Remaining first arrow for 2.0x, flipped -->
+        <polyline points="4 9 7 12 4 15" stroke-width="2"/>
+    </g>
+    <!-- Adding the text '10' to the right side of the arrow, smaller size to prevent overlapping -->
+    <text x="21" y="15" font-family="Arial" font-size="8" fill="currentColor">10</text>
+</svg></button>
+
+
+    <button class="play-pause-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="8,5 19,12 8,19 8,5" fill="white"/>
+        </svg>
+      </button>
+
+
+      <button class="forward"><svg width="74" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" class="playback-speed playback-speed-2-0x">
+    <!-- Adding the text '10' to the left side of the arrow -->
+    <text x="-6.5" y="15" font-family="Arial" font-size="8" fill="currentColor">10</text>
+    <!-- Arrow flipped to point to the right -->
+    <polyline points="4 9 7 12 4 15" stroke-width="2"/>
+</svg></button>
+</div>
   {# END OF SECTION #}
 
 

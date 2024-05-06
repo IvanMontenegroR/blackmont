@@ -1,134 +1,125 @@
-/* Styling for the main podcast card */
 .podcast-card {
-  
     align-items: stretch; /* Stretch items to match the card's width */
-    max-width: 255px; /* Maximum card width */
-    box-shadow: 0 4px 12px rgba(88,79,76,0.16); /* Shadow effect for depth */
+    width: 512px; 
+    box-shadow: 0 4px 12px rgba(88,79,76,0.16);
+  }
+
+  @media (max-width: 600px) {
+    .podcast-card {
+      width: 256px; 
+    }
   }
   
-  /* Container for image and overlay */
   .image-overlay-container {
-    position: relative; /* Needed for absolute positioning of children */
+    position: relative;
   }
   
-  /* Styles for the podcast image */
-  .podcast-image img {
-    width: 100%; /* Full width of its container */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Cover the container without stretching */
-    display: block; /* Block display to remove bottom margin/line */
-  }
-  
-  /* The overlay that appears on top of the podcast image */
   .overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    z-index: 1; /* Above the image but below the icon */
+    background-color: rgba(0, 0, 0, 0.5); 
   }
-  
-  /* Play/pause button styling */
-  .card-banner-icon {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent; /* No background */
-    border: 2px solid white; /* White border */
-    border-radius: 50%; /* Circular shape */
-    cursor: pointer; /* Pointer cursor on hover */
-    z-index: 2; /* Ensure it's above the overlay */
+
+  .podcast-image img {
+    width: 100%; 
+    height: auto; 
+    object-fit: cover; 
+    display: block;
   }
-  
-  /* Podcast information section styling */
-  .podcast-info {
-    padding: 1rem; /* Padding around the text */
-  }
-  
-  /* Row containing series name and episode number */
-  .info-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Space between series name and episode number */
-    width: 100%;
-    padding: 0.5rem 0 1rem; /* Padding top & bottom */
-  }
-  
-  /* Play/pause button centering */
-  .play-pause-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Perfectly center */
-    z-index: 2;
-    border: none;
-    background-color: #fff;
-    border-radius: 50%;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  
-  /* Hover effect for the card */
-  .podcast-card:hover .card-banner-icon {
-    background: white;
-    color: #e91c24; /* Example color, replace with your theme color */
-  }
-  
-  /* Link styling within the series name */
-  .series-name a {
-    color: #2b2b2b;
-    text-decoration: none; /* Remove underline */
-  }
-  
-  /* Styling for the series name */
-  .series-name {
-    position: relative;
-    border-bottom: 2px solid #e91c24; /* Red underline */
-  }
-  
-  /* Episode number styling */
-  .episode-number {
-    color: #2b2b2b;
-    text-align: right; /* Align to the right */
-  }
-  
-  /* Episode title styling */
-  .episode-title {
-    color: #2b2b2b;
-    margin-top: 0.5rem; /* Space between row and title */
-    font-size: 2rem; /* Larger font size for emphasis */
-  }
-  
-  /* Custom styling for the audio slider */
-  .audio-slider {
-    -webkit-appearance: none; /* Reset default style */
-    appearance: none; /* Reset default style for compatibility */
-    width: 100%; /* Full width */
-    height: 2px; /* Slider thickness */
-    background: #e91c24; /* Slider color */
-    cursor: pointer; /* Pointer cursor */
-  }
-  
-  
+
   .audio-controls {
     z-index: 1;
     display: flex;
     align-items: center;
-    bottom: 0;
     width: 100%;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.75);
   }
   
+  
+  .audio-slider {
+    -webkit-appearance: none; /* Reset default style */
+    appearance: none; /* Reset default style for compatibility */
+    width: 100%; 
+    height: 2px; /* Slider thickness */
+    background: #e91c24; /* Slider color */
+    cursor: pointer;
+  }
+  
   .current-time, .total-time {
     color: #fff;
     padding: 0.6rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    padding-top: 1rem;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .play-pause-btn {
+    width: 11%;
+    border: none;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(88,79,76,0.16);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 4px 6px 4px 6px;
+  }
+
+  @media (max-width: 600px) {
+    .play-pause-btn {
+      width: 20%;
+      padding: 8px 10px 8px 10px;
+    }
+  }
+
+  .forward, .backwards{
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+  }
+  
+  .play-pause-btn:hover, .forward:hover, .backwards:hover {
+    color: #e91c24;
+    transition: all 0.3s ease;
+  }
+  
+   .podcast-info {
+    padding: 1rem;
+  }
+  
+  .info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem 0 1rem;
+  }
+  
+  .series-name {
+    position: relative;
+    border-bottom: 2px solid #e91c24;
+  }
+  
+  .series-name a {
+    color: #2b2b2b;
+    text-decoration: none
+  }
+  
+
+  .episode-number {
+    color: #2b2b2b;
+    text-align: right;
+  }
+  
+  .episode-title {
+    color: #2b2b2b;
+    margin-top: 0.5rem; 
+    font-size: 2rem;
   }
