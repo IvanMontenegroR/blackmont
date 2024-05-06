@@ -11,12 +11,17 @@ window.onload = function() {
 
     // Select and store various elements within the current podcast card
     const audio = card.querySelector('.podcast-audio');
+    const episodeTitle = card.dataset.episodeTitle || 'episode-title';
     const playButton = card.querySelector('.play-pause-btn');
     const slider = card.querySelector('.audio-slider');
     const currentTimeElement = card.querySelector('.current-time');
     const totalTimeElement = card.querySelector('.total-time');
-    const speedControlBackward = card.querySelector('.speed-control-1');
-    const speedControlForward = card.querySelector('.speed-control-2');
+    const speedControlBackward = card.querySelector('.backward');
+    const speedControlForward = card.querySelector('.forward');
+    const speedToggle = card.querySelector('.speed-toggle');
+    const downloadButton = card.querySelector('.download-button');
+    const speeds = [1, 1.5, 2];
+    let currentSpeedIndex = 0; // Index of the current speed
 
     slider.max = audio.duration;
 
@@ -96,15 +101,39 @@ window.onload = function() {
       currentTimeElement.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
     });
 
-    // Event listener for speed-control-1 (Backward 10 seconds)
+    // Backward 10 seconds
     speedControlBackward.addEventListener('click', function() {
       audio.currentTime = Math.max(0, audio.currentTime - 10);
     });
 
-    // Event listener for speed-control-2 (Forward 10 seconds)
+    // Forward 10 seconds
     speedControlForward.addEventListener('click', function() {
       audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
     });
+
+    // Function to download the podcast audio
+    downloadButton.addEventListener('click', () => {
+    const audioUrl = audio.getAttribute('src'); // Get the audio file URL
+    const filename = `${episodeTitle}.mp3`; // Use the episode name as the filename
+    const downloadLink = document.createElement('a');
+    downloadLink.href = audioUrl;
+    downloadLink.download = filename; // Set the desired filename
+    document.body.appendChild(downloadLink);
+    downloadLink.click(); // Trigger the download
+    document.body.removeChild(downloadLink); // Clean up
+  });
+    
+
+    // Update the playback speed and button label
+    function updateSpeed() {
+      currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length; // Cycle through speeds
+      const newSpeed = speeds[currentSpeedIndex];
+      speedToggle.textContent = `${newSpeed}x`; // Update button label
+      audio.playbackRate = newSpeed; // Set audio playback rate
+    }
+
+    // Attach the click event listener to the speed toggle button
+    speedToggle.addEventListener('click', updateSpeed);
 
     
     // Continuously check and update the total time until it's loaded
